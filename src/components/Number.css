@@ -1,0 +1,16 @@
+.Number {
+    width: 230px;
+    height: 120px;
+    border: 3px solid;
+    border-color: aqua;
+    border-radius: 10px;
+    background-color: aqua;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filterNumber {
+    color: brown;
+}
