@@ -1,0 +1,21 @@
+.Buttons {
+    width: 230px;
+    height: 70px;
+    border: 3px solid;
+    border-color: aqua;
+    border-radius: 10px;
+    display: flex;
+
+    align-items: center;
+    justify-content: space-around;
+}
+
+/*.set {*/
+/*    width: 75px;*/
+/*    height: 40px;*/
+/*    !*background-color: darkslategrey;*!*/
+/*    !*color: black;*!*/
+/*    !*border: 3px solid aqua;*!*/
+/*    !*border-radius: 10px;*!*/
+/*    !*font-size: 30px;*!*/
+/*}*/

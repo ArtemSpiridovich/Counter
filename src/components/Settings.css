@@ -1,0 +1,37 @@
+.Number {
+    width: 230px;
+    height: 120px;
+    border: 3px solid;
+    border-color: aqua;
+    border-radius: 10px;
+    background-color: aqua;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: space-around;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: space-around;
+    height: 70px;
+}
+
+.maxv  {
+    display: flex;
+}
+
+.minv  {
+    display: flex;
+}
+
+input {
+    width: 80px;
+}
+
+.error {
+    border-color: red;
+}

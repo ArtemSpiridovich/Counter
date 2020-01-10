@@ -7,24 +7,28 @@ class Buttons extends React.Component {
 
 
     onIncButton = () => {
-        let value = this.props.numberElement
+        let value = this.props.state.numberCurrent;
         this.props.incButton(value);
     }
 
     onResetButton = () => {
-        let value = this.props.numberElement
+        let value = this.props.state.numberCurrent;
         this.props.resetButton(value);
+    }
+
+    onsetButton = () => {
+        this.props.onsetButton()
     }
 
     render = () => {
         let positionInc
         let positionReset
-        if(this.props.numberElement === 5){
+        if(this.props.state.numberCurrent === this.props.state.maxnumber ){
              positionInc = true;
         } else {
-             positionInc = false
+             positionInc = false;
         } ;
-        if(this.props.numberElement === 0){
+        if(this.props.state.numberCurrent === this.props.state.minnumber){
              positionReset = true;
         } else {
              positionReset = false;
@@ -33,6 +37,7 @@ class Buttons extends React.Component {
             <div className="Buttons">
                 <Button text='inc' onClick={this.onIncButton} valueDisable={positionInc}/>
                 <Button text='reset' onClick={this.onResetButton} valueDisable={positionReset}/>
+                <Button text='set' onClick={this.onsetButton}/>
             </div>
         );
     }

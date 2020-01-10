@@ -12,5 +12,13 @@
 }
 
 .filterNumber {
-    color: brown;
+    font-size: 25px;
+    font-weight: bolder;
+    color: red;
+}
+
+.filtererror {
+    font-size: 25px;
+    font-weight: bold;
+    color: red;
 }
