@@ -64,8 +64,8 @@ class App extends React.Component {
         }
     };
 
-    errorvalue = (a) => {
-        if (this.state.minnumber > this.state.maxnumber || a < 0 || this.state.maxnumber === this.state.minnumber) {
+    errorvalue = (max, min) => {
+        if (min > max || min < 0 || max === min) {
             this.setState({
                 correctValue: false
             })
@@ -85,7 +85,7 @@ class App extends React.Component {
             maxnumber: maxval,
             settingmode: false,
         }, () => {
-            this.errorvalue(maxval)
+            this.errorvalue(maxval, this.state.minnumber)
             this.saveState()
         })
     }
@@ -99,7 +99,7 @@ class App extends React.Component {
             minnumber: minval,
             settingmode: false,
         }, () => {
-            this.errorvalue(minval)
+            this.errorvalue(this.state.maxnumber,minval)
             this.saveState()
         })
     }
