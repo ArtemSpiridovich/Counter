@@ -12,8 +12,7 @@ class App extends React.Component {
         numberCurrent: 0,
         maxnumber: 5,
         minnumber: 0,
-        settingmode: true,
-        settingview: false
+        settingmode: true
     }
 
     componentDidMount() {
@@ -31,8 +30,7 @@ class App extends React.Component {
             numberCurrent: 0,
             maxnumber: 5,
             minnumber: 0,
-            settingmode: true,
-            settingview: false
+            settingmode: true
         }
         let stateAsString = localStorage.getItem('out-state');
         if (stateAsString !== null) {
@@ -99,7 +97,7 @@ class App extends React.Component {
             minnumber: minval,
             settingmode: false,
         }, () => {
-            this.errorvalue(this.state.maxnumber,minval)
+            this.errorvalue(this.state.maxnumber, minval)
             this.saveState()
         })
     }
@@ -112,32 +110,26 @@ class App extends React.Component {
         })
     };
 
-    onsetButton = () => {
-        this.setState({
-            settingview: true
-        })
-    }
 
     render = () => {
         return (
             <div className="App">
-                {this.state.settingview
-                    ? <div className='components'>
-                        <Settings state={this.state}
-                                  changeStatusMax={this.changeStatusMax}
-                                  changeStatusMin={this.changeStatusMin}/>
-                        <ButtonsSet state={this.state}
-                                    setButton={this.setButton}
-                        />
-                    </div>
-                    : <div className='components'>
-                        <Number state={this.state}/>
-                        <Buttons state={this.state}
-                                 incButton={this.incButton}
-                                 resetButton={this.resetButton}
-                                 onsetButton={this.onsetButton}
-                        />
-                    </div>}
+                <div className='components'>
+                    <Settings state={this.state}
+                              changeStatusMax={this.changeStatusMax}
+                              changeStatusMin={this.changeStatusMin}/>
+                    <ButtonsSet state={this.state}
+                                setButton={this.setButton}
+                    />
+                </div>
+                <div className='components'>
+                    <Number state={this.state}/>
+                    <Buttons state={this.state}
+                             incButton={this.incButton}
+                             resetButton={this.resetButton}
+                             onsetButton={this.onsetButton}
+                    />
+                </div>
             </div>
         );
     };

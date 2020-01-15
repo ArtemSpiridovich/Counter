@@ -37,7 +37,6 @@ class Buttons extends React.Component {
             <div className="Buttons">
                 <Button text='inc' onClick={this.onIncButton} valueDisable={positionInc}/>
                 <Button text='reset' onClick={this.onResetButton} valueDisable={positionReset}/>
-                <Button text='set' onClick={this.onsetButton}/>
             </div>
         );
     }
