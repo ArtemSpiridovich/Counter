@@ -4,61 +4,34 @@ import Number from "./components/Number";
 import Buttons from "./components/Buttons";
 import Settings from "./components/Settings";
 import ButtonsSet from "./components/ButtonsSet";
+import {connect} from "react-redux";
+import {incButtonAC, resetButtonAC} from "./redux/store";
 
 class App extends React.Component {
 
-    state = {
-        correctValue: true,
-        numberCurrent: 0,
-        maxnumber: 5,
-        minnumber: 0,
-        settingmode: true
-    }
-
-    componentDidMount() {
-        this.restoreState()
-    }
-
-    saveState = () => {
-        let saveAsString = JSON.stringify(this.state)
-        localStorage.setItem('out-state', saveAsString)
-    }
-
-    restoreState = () => {
-        let state = {
-            correctValue: true,
-            numberCurrent: 0,
-            maxnumber: 5,
-            minnumber: 0,
-            settingmode: true
-        }
-        let stateAsString = localStorage.getItem('out-state');
-        if (stateAsString !== null) {
-            state = JSON.parse(stateAsString)
-        }
-        this.setState(state)
-    }
+    // state = {
+    //     correctValue: true,
+    //     numberCurrent: 0,
+    //     maxnumber: 5,
+    //     minnumber: 0,
+    //     settingmode: true
+    // }
 
     incButton = (value) => {
-        if (value < this.state.maxnumber) {
-            let a = value + 1;
-            this.setState({
-                numberCurrent: a,
-            }, () => {
-                this.saveState()
-            })
+        if (value < this.props.maxnumber) {
+            // this.setState({
+            //     numberCurrent: a,
+            // })
+            this.props.incButton(value)
         }
     };
 
     resetButton = (value) => {
-        if (value !== this.state.minnumber) {
-            value = this.state.minnumber;
-            let a = value;
-            this.setState({
-                numberCurrent: a
-            }, () => {
-                this.saveState()
-            })
+        if (value !== this.props.minnumber) {
+            // this.setState({
+            //     numberCurrent: a
+            // })
+            this.props.resetButton(value)
         }
     };
 
@@ -83,8 +56,7 @@ class App extends React.Component {
             maxnumber: maxval,
             settingmode: false,
         }, () => {
-            this.errorvalue(maxval, this.state.minnumber)
-            this.saveState()
+            this.errorvalue(maxval, this.props.minnumber)
         })
     }
 
@@ -97,14 +69,13 @@ class App extends React.Component {
             minnumber: minval,
             settingmode: false,
         }, () => {
-            this.errorvalue(this.state.maxnumber, minval)
-            this.saveState()
+            this.errorvalue(this.props.maxnumber, minval)
         })
     }
 
     setButton = () => {
         this.setState({
-            numberCurrent: this.state.minnumber,
+            numberCurrent: this.props.minnumber,
             settingmode: true,
             settingview: false
         })
@@ -112,19 +83,20 @@ class App extends React.Component {
 
 
     render = () => {
+        debugger
         return (
             <div className="App">
                 <div className='components'>
-                    <Settings state={this.state}
+                    <Settings state={this.props}
                               changeStatusMax={this.changeStatusMax}
                               changeStatusMin={this.changeStatusMin}/>
-                    <ButtonsSet state={this.state}
+                    <ButtonsSet state={this.props}
                                 setButton={this.setButton}
                     />
                 </div>
                 <div className='components'>
-                    <Number state={this.state}/>
-                    <Buttons state={this.state}
+                    <Number state={this.props}/>
+                    <Buttons state={this.props}
                              incButton={this.incButton}
                              resetButton={this.resetButton}
                              onsetButton={this.onsetButton}
@@ -134,4 +106,22 @@ class App extends React.Component {
         );
     };
 };
-export default App;
+
+const mapStateToProps = (state) => {
+    return state
+};
+/**/
+const mapDispatchToProps = (dispatch) => {
+    return {
+        incButton: (value) => {
+            dispatch(incButtonAC(value));
+        },
+        resetButton: (valuer) => {
+            dispatch(resetButtonAC(valuer))
+        }
+    }
+};
+
+const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App)
+
+export default ConnectedApp
