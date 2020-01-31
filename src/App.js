@@ -5,7 +5,14 @@ import Buttons from "./components/Buttons";
 import Settings from "./components/Settings";
 import ButtonsSet from "./components/ButtonsSet";
 import {connect} from "react-redux";
-import {incButtonAC, resetButtonAC} from "./redux/store";
+import {
+    changeStatusMaxAC,
+    changeStatusMinAC,
+    errorvalueAC,
+    incButtonAC,
+    resetButtonAC,
+    setButtonAC
+} from "./redux/store";
 
 class App extends React.Component {
 
@@ -35,29 +42,34 @@ class App extends React.Component {
         }
     };
 
-    errorvalue = (max, min) => {
-        if (min > max || min < 0 || max === min) {
-            this.setState({
-                correctValue: false
-            })
-        } else {
-            this.setState({
-                correctValue: true
-            })
-        }
-    }
+    // errorvalue = (max, min) => {
+    //     if (min > max || min < 0 || max === min) {
+    //         this.setState({
+    //             correctValue: false
+    //         })
+    //     } else {
+    //         this.setState({
+    //             correctValue: true
+    //         })
+    //     }
+    // }
 
     changeStatusMax = (maxval) => {
         // let a = true
         // if(this.state.minnumber>=this.state.maxnumber || maxval<0) {
         //     a = false;
         // }
-        this.setState({
-            maxnumber: maxval,
-            settingmode: false,
-        }, () => {
-            this.errorvalue(maxval, this.props.minnumber)
-        })
+        // this.setState({
+        //     maxnumber: maxval,
+        //     settingmode: false,
+        // }, () => {
+        //     this.errorvalue(maxval, this.props.minnumber)
+        // })
+        if (this.props.minnumber > maxval || this.props.minnumber < 0 || maxval === this.props.minnumber) {
+            this.props.errorvalue(maxval, this.props.minnumber)
+        } else {
+            this.props.changeStatusMax(maxval)
+        }
     }
 
     changeStatusMin = (minval) => {
@@ -65,20 +77,26 @@ class App extends React.Component {
         // if(this.state.minnumber>=this.state.maxnumber || minval<0) {
         //     a = false;
         // }
-        this.setState({
-            minnumber: minval,
-            settingmode: false,
-        }, () => {
-            this.errorvalue(this.props.maxnumber, minval)
-        })
+        // this.setState({
+        //     minnumber: minval,
+        //     settingmode: false,
+        // }, () => {
+        //     this.errorvalue(this.props.maxnumber, minval)
+        // })
+        if (minval > this.props.maxnumber || minval < 0 || this.props.maxnumber === minval) {
+            this.props.errorvalue(this.props.maxnumber, minval)
+        } else {
+            this.props.changeStatusMin(minval)
+        }
     }
 
     setButton = () => {
-        this.setState({
-            numberCurrent: this.props.minnumber,
-            settingmode: true,
-            settingview: false
-        })
+        // this.setState({
+        //     numberCurrent: this.props.minnumber,
+        //     settingmode: true,
+        //     settingview: false
+        // })
+        this.props.setButton()
     };
 
 
@@ -110,7 +128,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
     return state
 };
-/**/
+
 const mapDispatchToProps = (dispatch) => {
     return {
         incButton: (value) => {
@@ -118,6 +136,18 @@ const mapDispatchToProps = (dispatch) => {
         },
         resetButton: (valuer) => {
             dispatch(resetButtonAC(valuer))
+        },
+        changeStatusMax: (maxval) => {
+            dispatch(changeStatusMaxAC(maxval))
+        },
+        changeStatusMin: (minval) => {
+            dispatch(changeStatusMinAC(minval))
+        },
+        setButton: () => {
+            dispatch(setButtonAC())
+        },
+        errorvalue: (max, min) => {
+            dispatch(errorvalueAC(max, min))
         }
     }
 };
